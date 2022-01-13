@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1251">
+<title>Shisen-sho</title>
+<style type="text/css">
+td { border-style: solid; text-align: center; font-weight: bold; visibility: visible }
+</style>
+<script type="text/javascript">
+var c = [[0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+         [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+         [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+         [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+         [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+         [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+         [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0],
+         [0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0]];
+var abc = "abcdefgh";
+var sel;
+var sa, sb;
+var rc;
+function fs()
+{
+  var i, j, k, l, n, p;
+  n = 0;
+  for(j = 0; j < 8; j++) {
+    for(k = 0; k < 15; k++) {
+      c[j][k] = 0;
+    }
+  }
+  for(i = 120; i > 0; i--) {
+    if((i % 6) == 0)
+      n++;
+    p = Math.floor(Math.random() * i);
+    l = 0;
+    for(j = 0; j < 8; j++) {
+      for(k = 0; k < 15; k++) {
+        if(c[j][k] == 0) {
+          if(l == p) {
+            c[j][k] = n;
+            l = -1;
+            break;
+          }
+          l++;
+        }
+      }
+      if(l == -1)
+        break;
+    }
+  }
+  for(j = 0; j < 8; j++) {
+    for(k = 1; k <= 15; k++) {
+      document.getElementById(abc.charAt(j) + k).innerHTML = c[j][k - 1];
+      document.getElementById(abc.charAt(j) + k).style.visibility = "visible";
+      document.getElementById(abc.charAt(j) + k).style.backgroundColor = "white";
+    }
+  }
+  sel = 0;
+  rc = 120;
+}
+function hm(a, b1, b2)
+{
+  var i, j, k;
+  if(b1 < b2) {
+    i = b1;
+    j = b2;
+  }
+  else {
+    i = b2;
+    j = b1;
+  }
+  for(k = i + 1; k <= j - 1; k++) {
+    if(c[a][k - 1] != 0)
+      break;
+  }
+  if(k > j - 1)
+    return 1;
+  else
+    return 0;
+}
+function vm(a1, a2, b)
+{
+  var i, j, k;
+  if(a1 < a2) {
+    i = a1;
+    j = a2;
+  }
+  else {
+    i = a2;
+    j = a1;
+  }
+  for(k = i + 1; k <= j - 1; k++) {
+    if(c[k][b - 1] != 0)
+      break;
+  }
+  if(k > j - 1)
+    return 1;
+  else
+    return 0;
+}
+function fr(a, b)
+{
+  var k;
+  if(c[sa][sb - 1] != c[a][b - 1])
+    return 0;
+  if(sa == a) {
+    if(hm(sa, sb, b) == 1)
+      return 1;
+  }
+  if(sb == b) {
+    if(vm(sa, a, sb) == 1)
+      return 1;
+  }
+  if((sa != a) && (sb != b)) {
+    if((hm(sa, sb, b) == 1) && (c[sa][b - 1] == 0) && (vm(sa, a, b) == 1))
+      return 1;
+    if((vm(sa, a, sb) == 1) && (c[a][sb - 1] == 0) && (hm(a, sb, b) == 1))
+      return 1;
+  }
+  if(sa != a) {
+    for(k = 0; k <= 16; k++) {
+      if((k == sb) || (k == b))
+        continue;
+      if((hm(sa, sb, k) == 1) && (hm(a, b, k) == 1)) {
+        if((k == 0) || (k == 16))
+          return 1;
+        if((c[sa][k - 1] == 0) && (vm(sa, a, k) == 1) && (c[a][k - 1] == 0))
+          return 1;
+      }
+    }
+  }
+  if(sb != b) {
+    for(k = -1; k <= 8; k++) {
+      if((k == sa) || (k == a))
+        continue;
+      if((vm(sa, k, sb) == 1) && (vm(a, k, b) == 1)) {
+        if((k == -1) || (k == 8))
+          return 1;
+        if((c[k][sb - 1] == 0) && (hm(k, sb, b) == 1) && (c[k][b - 1] == 0))
+          return 1;
+      }
+    }
+  }
+  return 0;
+}
+function fe()
+{
+  var i, j;
+  var str1 = " ПОЗДРАВЛЯЕМ ! ";
+  var str2 = " ВЫ ВЫИГРАЛИ ! ";
+  rc = 0;
+  for(i = 0; i < 8; i++) {
+    for(j = 1; j <= 15; j++) {
+      document.getElementById(abc.charAt(i) + j).innerHTML = "";
+      document.getElementById(abc.charAt(i) + j).style.visibility = "visible";
+      document.getElementById(abc.charAt(i) + j).style.backgroundColor = "white";
+    }
+  }
+
+  for(j = 1; j <= 15; j++) {
+    document.getElementById(abc.charAt(2) + j).innerHTML = str1.charAt(j - 1);
+    document.getElementById(abc.charAt(5) + j).innerHTML = str2.charAt(j - 1);
+  }
+}
+function fc(a, b)
+{
+  if(rc == 0) {
+    fs();
+    return;
+  }
+  if(c[a][b - 1] == 0)
+    return;
+  if(sel == 0) {
+    sel = 1;
+    sa = a;
+    sb = b;
+    document.getElementById(abc.charAt(a) + b).style.backgroundColor = "yellow";
+  }
+  else {
+    if((sa == a) && (sb == b)) {
+      sel = 0;
+      document.getElementById(abc.charAt(a) + b).style.backgroundColor = "white";
+    }
+    else {
+      sel = 0;
+      if(fr(a, b) == 1) {
+        c[sa][sb - 1] = 0;
+        c[a][b - 1] = 0;
+        document.getElementById(abc.charAt(sa) + sb).style.visibility = "hidden";
+        document.getElementById(abc.charAt(a) + b).style.visibility = "hidden";
+        rc -= 2;
+        if(rc == 0)
+          fe();
+      }
+      else {
+        document.getElementById(abc.charAt(sa) + sb).style.backgroundColor = "white";
+      }
+    }
+  }
+}
+</script>
+</head>
+<body onkeypress="fe();">
+
+<table>
+<tbody><tr>
+<td style="visibility: visible; background-color: white;" id="a1" onclick="fc(0,1);" height="25" width="30">6</td>
+<td style="visibility: visible; background-color: white;" id="a2" onclick="fc(0,2);" height="25" width="30">15</td>
+<td style="visibility: visible; background-color: white;" id="a3" onclick="fc(0,3);" height="25" width="30">5</td>
+<td style="visibility: visible; background-color: white;" id="a4" onclick="fc(0,4);" height="25" width="30">15</td>
+<td style="visibility: visible; background-color: white;" id="a5" onclick="fc(0,5);" height="25" width="30">19</td>
+<td style="visibility: visible; background-color: white;" id="a6" onclick="fc(0,6);" height="25" width="30">10</td>
+<td style="visibility: visible; background-color: white;" id="a7" onclick="fc(0,7);" height="25" width="30">20</td>
+<td style="visibility: visible; background-color: white;" id="a8" onclick="fc(0,8);" height="25" width="30">3</td>
+<td style="visibility: visible; background-color: white;" id="a9" onclick="fc(0,9);" height="25" width="30">15</td>
+<td style="visibility: visible; background-color: white;" id="a10" onclick="fc(0,10);" height="25" width="30">3</td>
+<td style="visibility: visible; background-color: white;" id="a11" onclick="fc(0,11);" height="25" width="30">5</td>
+<td style="visibility: visible; background-color: white;" id="a12" onclick="fc(0,12);" height="25" width="30">13</td>
+<td style="visibility: visible; background-color: white;" id="a13" onclick="fc(0,13);" height="25" width="30">9</td>
+<td style="visibility: visible; background-color: white;" id="a14" onclick="fc(0,14);" height="25" width="30">17</td>
+<td style="visibility: visible; background-color: white;" id="a15" onclick="fc(0,15);" height="25" width="30">9</td>
+</tr>
+<tr>
+<td style="visibility: visible; background-color: white;" id="b1" onclick="fc(1,1);" height="25" width="30">18</td>
+<td style="visibility: visible; background-color: white;" id="b2" onclick="fc(1,2);" height="25" width="30">4</td>
+<td style="visibility: visible; background-color: white;" id="b3" onclick="fc(1,3);" height="25" width="30">2</td>
+<td style="visibility: visible; background-color: white;" id="b4" onclick="fc(1,4);" height="25" width="30">5</td>
+<td style="visibility: visible; background-color: white;" id="b5" onclick="fc(1,5);" height="25" width="30">13</td>
+<td style="visibility: visible; background-color: white;" id="b6" onclick="fc(1,6);" height="25" width="30">20</td>
+<td style="visibility: visible; background-color: white;" id="b7" onclick="fc(1,7);" height="25" width="30">11</td>
+<td style="visibility: visible; background-color: white;" id="b8" onclick="fc(1,8);" height="25" width="30">5</td>
+<td style="visibility: visible; background-color: white;" id="b9" onclick="fc(1,9);" height="25" width="30">8</td>
+<td style="visibility: visible; background-color: white;" id="b10" onclick="fc(1,10);" height="25" width="30">7</td>
+<td style="visibility: visible; background-color: white;" id="b11" onclick="fc(1,11);" height="25" width="30">16</td>
+<td style="visibility: visible; background-color: white;" id="b12" onclick="fc(1,12);" height="25" width="30">9</td>
+<td style="visibility: visible; background-color: white;" id="b13" onclick="fc(1,13);" height="25" width="30">14</td>
+<td style="visibility: visible; background-color: white;" id="b14" onclick="fc(1,14);" height="25" width="30">1</td>
+<td style="visibility: visible; background-color: white;" id="b15" onclick="fc(1,15);" height="25" width="30">11</td>
+</tr>
+<tr>
+<td style="visibility: visible; background-color: white;" id="c1" onclick="fc(2,1);" height="25" width="30">14</td>
+<td style="visibility: visible; background-color: white;" id="c2" onclick="fc(2,2);" height="25" width="30">13</td>
+<td style="visibility: visible; background-color: white;" id="c3" onclick="fc(2,3);" height="25" width="30">20</td>
+<td style="visibility: visible; background-color: white;" id="c4" onclick="fc(2,4);" height="25" width="30">19</td>
+<td style="visibility: visible; background-color: white;" id="c5" onclick="fc(2,5);" height="25" width="30">17</td>
+<td style="visibility: visible; background-color: white;" id="c6" onclick="fc(2,6);" height="25" width="30">2</td>
+<td style="visibility: visible; background-color: white;" id="c7" onclick="fc(2,7);" height="25" width="30">14</td>
+<td style="visibility: visible; background-color: white;" id="c8" onclick="fc(2,8);" height="25" width="30">16</td>
+<td style="visibility: visible; background-color: white;" id="c9" onclick="fc(2,9);" height="25" width="30">4</td>
+<td style="visibility: visible; background-color: white;" id="c10" onclick="fc(2,10);" height="25" width="30">16</td>
+<td style="visibility: visible; background-color: white;" id="c11" onclick="fc(2,11);" height="25" width="30">8</td>
+<td style="visibility: visible; background-color: white;" id="c12" onclick="fc(2,12);" height="25" width="30">13</td>
+<td style="visibility: visible; background-color: white;" id="c13" onclick="fc(2,13);" height="25" width="30">10</td>
+<td style="visibility: visible; background-color: white;" id="c14" onclick="fc(2,14);" height="25" width="30">11</td>
+<td style="visibility: visible; background-color: white;" id="c15" onclick="fc(2,15);" height="25" width="30">20</td>
+</tr>
+<tr>
+<td style="visibility: visible; background-color: white;" id="d1" onclick="fc(3,1);" height="25" width="30">8</td>
+<td style="visibility: visible; background-color: white;" id="d2" onclick="fc(3,2);" height="25" width="30">19</td>
+<td style="visibility: visible; background-color: white;" id="d3" onclick="fc(3,3);" height="25" width="30">10</td>
+<td style="visibility: visible; background-color: white;" id="d4" onclick="fc(3,4);" height="25" width="30">15</td>
+<td style="visibility: visible; background-color: white;" id="d5" onclick="fc(3,5);" height="25" width="30">6</td>
+<td style="visibility: visible; background-color: white;" id="d6" onclick="fc(3,6);" height="25" width="30">16</td>
+<td style="visibility: visible; background-color: white;" id="d7" onclick="fc(3,7);" height="25" width="30">4</td>
+<td style="visibility: visible; background-color: white;" id="d8" onclick="fc(3,8);" height="25" width="30">2</td>
+<td style="visibility: visible; background-color: white;" id="d9" onclick="fc(3,9);" height="25" width="30">7</td>
+<td style="visibility: visible; background-color: white;" id="d10" onclick="fc(3,10);" height="25" width="30">12</td>
+<td style="visibility: visible; background-color: white;" id="d11" onclick="fc(3,11);" height="25" width="30">6</td>
+<td style="visibility: visible; background-color: white;" id="d12" onclick="fc(3,12);" height="25" width="30">17</td>
+<td style="visibility: visible; background-color: white;" id="d13" onclick="fc(3,13);" height="25" width="30">18</td>
+<td style="visibility: visible; background-color: white;" id="d14" onclick="fc(3,14);" height="25" width="30">15</td>
+<td style="visibility: visible; background-color: white;" id="d15" onclick="fc(3,15);" height="25" width="30">1</td>
+</tr>
+<tr>
+<td style="visibility: visible; background-color: white;" id="e1" onclick="fc(4,1);" height="25" width="30">4</td>
+<td style="visibility: visible; background-color: white;" id="e2" onclick="fc(4,2);" height="25" width="30">8</td>
+<td style="visibility: visible; background-color: white;" id="e3" onclick="fc(4,3);" height="25" width="30">9</td>
+<td style="visibility: visible; background-color: white;" id="e4" onclick="fc(4,4);" height="25" width="30">7</td>
+<td style="visibility: visible; background-color: white;" id="e5" onclick="fc(4,5);" height="25" width="30">20</td>
+<td style="visibility: visible; background-color: white;" id="e6" onclick="fc(4,6);" height="25" width="30">13</td>
+<td style="visibility: visible; background-color: white;" id="e7" onclick="fc(4,7);" height="25" width="30">5</td>
+<td style="visibility: visible; background-color: white;" id="e8" onclick="fc(4,8);" height="25" width="30">3</td>
+<td style="visibility: visible; background-color: white;" id="e9" onclick="fc(4,9);" height="25" width="30">18</td>
+<td style="visibility: visible; background-color: white;" id="e10" onclick="fc(4,10);" height="25" width="30">6</td>
+<td style="visibility: visible; background-color: white;" id="e11" onclick="fc(4,11);" height="25" width="30">12</td>
+<td style="visibility: visible; background-color: white;" id="e12" onclick="fc(4,12);" height="25" width="30">1</td>
+<td style="visibility: visible; background-color: white;" id="e13" onclick="fc(4,13);" height="25" width="30">18</td>
+<td style="visibility: visible; background-color: white;" id="e14" onclick="fc(4,14);" height="25" width="30">19</td>
+<td style="visibility: visible; background-color: white;" id="e15" onclick="fc(4,15);" height="25" width="30">18</td>
+</tr>
+<tr>
+<td style="visibility: visible; background-color: white;" id="f1" onclick="fc(5,1);" height="25" width="30">3</td>
+<td style="visibility: visible; background-color: white;" id="f2" onclick="fc(5,2);" height="25" width="30">2</td>
+<td style="visibility: visible; background-color: white;" id="f3" onclick="fc(5,3);" height="25" width="30">13</td>
+<td style="visibility: visible; background-color: white;" id="f4" onclick="fc(5,4);" height="25" width="30">1</td>
+<td style="visibility: visible; background-color: white;" id="f5" onclick="fc(5,5);" height="25" width="30">11</td>
+<td style="visibility: visible; background-color: white;" id="f6" onclick="fc(5,6);" height="25" width="30">1</td>
+<td style="visibility: visible; background-color: white;" id="f7" onclick="fc(5,7);" height="25" width="30">12</td>
+<td style="visibility: visible; background-color: white;" id="f8" onclick="fc(5,8);" height="25" width="30">3</td>
+<td style="visibility: visible; background-color: white;" id="f9" onclick="fc(5,9);" height="25" width="30">8</td>
+<td style="visibility: visible; background-color: white;" id="f10" onclick="fc(5,10);" height="25" width="30">12</td>
+<td style="visibility: visible; background-color: white;" id="f11" onclick="fc(5,11);" height="25" width="30">1</td>
+<td style="visibility: visible; background-color: white;" id="f12" onclick="fc(5,12);" height="25" width="30">14</td>
+<td style="visibility: visible; background-color: white;" id="f13" onclick="fc(5,13);" height="25" width="30">17</td>
+<td style="visibility: visible; background-color: white;" id="f14" onclick="fc(5,14);" height="25" width="30">18</td>
+<td style="visibility: visible; background-color: white;" id="f15" onclick="fc(5,15);" height="25" width="30">10</td>
+</tr>
+<tr>
+<td style="visibility: visible; background-color: white;" id="g1" onclick="fc(6,1);" height="25" width="30">10</td>
+<td style="visibility: visible; background-color: white;" id="g2" onclick="fc(6,2);" height="25" width="30">7</td>
+<td style="visibility: visible; background-color: white;" id="g3" onclick="fc(6,3);" height="25" width="30">7</td>
+<td style="visibility: visible; background-color: white;" id="g4" onclick="fc(6,4);" height="25" width="30">2</td>
+<td style="visibility: visible; background-color: white;" id="g5" onclick="fc(6,5);" height="25" width="30">3</td>
+<td style="visibility: visible; background-color: white;" id="g6" onclick="fc(6,6);" height="25" width="30">4</td>
+<td style="visibility: visible; background-color: white;" id="g7" onclick="fc(6,7);" height="25" width="30">11</td>
+<td style="visibility: visible; background-color: white;" id="g8" onclick="fc(6,8);" height="25" width="30">2</td>
+<td style="visibility: visible; background-color: white;" id="g9" onclick="fc(6,9);" height="25" width="30">4</td>
+<td style="visibility: visible; background-color: white;" id="g10" onclick="fc(6,10);" height="25" width="30">15</td>
+<td style="visibility: visible; background-color: white;" id="g11" onclick="fc(6,11);" height="25" width="30">14</td>
+<td style="visibility: visible; background-color: white;" id="g12" onclick="fc(6,12);" height="25" width="30">9</td>
+<td style="visibility: visible; background-color: white;" id="g13" onclick="fc(6,13);" height="25" width="30">20</td>
+<td style="visibility: visible; background-color: white;" id="g14" onclick="fc(6,14);" height="25" width="30">19</td>
+<td style="visibility: visible; background-color: white;" id="g15" onclick="fc(6,15);" height="25" width="30">6</td>
+</tr>
+<tr>
+<td style="visibility: visible; background-color: white;" id="h1" onclick="fc(7,1);" height="25" width="30">14</td>
+<td style="visibility: visible; background-color: white;" id="h2" onclick="fc(7,2);" height="25" width="30">10</td>
+<td style="visibility: visible; background-color: white;" id="h3" onclick="fc(7,3);" height="25" width="30">17</td>
+<td style="visibility: visible; background-color: white;" id="h4" onclick="fc(7,4);" height="25" width="30">19</td>
+<td style="visibility: visible; background-color: white;" id="h5" onclick="fc(7,5);" height="25" width="30">12</td>
+<td style="visibility: visible; background-color: white;" id="h6" onclick="fc(7,6);" height="25" width="30">7</td>
+<td style="visibility: visible; background-color: white;" id="h7" onclick="fc(7,7);" height="25" width="30">5</td>
+<td style="visibility: visible; background-color: white;" id="h8" onclick="fc(7,8);" height="25" width="30">17</td>
+<td style="visibility: visible; background-color: white;" id="h9" onclick="fc(7,9);" height="25" width="30">8</td>
+<td style="visibility: visible; background-color: white;" id="h10" onclick="fc(7,10);" height="25" width="30">12</td>
+<td style="visibility: visible; background-color: white;" id="h11" onclick="fc(7,11);" height="25" width="30">16</td>
+<td style="visibility: visible; background-color: white;" id="h12" onclick="fc(7,12);" height="25" width="30">6</td>
+<td style="visibility: visible; background-color: white;" id="h13" onclick="fc(7,13);" height="25" width="30">9</td>
+<td style="visibility: visible; background-color: white;" id="h14" onclick="fc(7,14);" height="25" width="30">11</td>
+<td style="visibility: visible; background-color: white;" id="h15" onclick="fc(7,15);" height="25" width="30">16</td>
+</tr>
+</tbody></table>
+
+<script type="text/javascript">
+fs();
+</script>
+
+
+
+</body></html>
