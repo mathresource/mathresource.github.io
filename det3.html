@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>3*3 DETERMINANT CALCULATION</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script type="text/javascript">
+function formatInt(i) {
+  return i >= 0 ? i : "("+i+")";
+}
+function parseCell(name)
+{
+  var v = document.getElementById(name).value
+  if(parseInt(v) == v) {
+    document.getElementById(name).style.backgroundColor="#FFFFFF";
+    return v;
+  }
+  else {
+    document.getElementById(name).style.backgroundColor="#FF0000";
+    return NaN;
+  }
+}
+function calc()
+{
+  var a = parseCell("a");  var b = parseCell("b");  var c = parseCell("c");
+  var d = parseCell("d");  var e = parseCell("e");  var f = parseCell("f");
+  var g = parseCell("g");  var h = parseCell("h");  var i = parseCell("i");
+  if(isNaN(a) || isNaN(b) || isNaN(c) || isNaN(d) || isNaN(e) || isNaN(f) || isNaN(g) || isNaN(h) || isNaN(i)) {
+    document.getElementById("output").innerHTML = "ENTER NUMBERS";
+    return;
+  }
+  document.getElementById("output").innerHTML = "$$\\left|\\begin{matrix}" + 
+   a + "&" + b + "&" + c + "\\\\" + 
+   d + "&" + e + "&" + f + "\\\\" + 
+   g + "&" + h + "&" + i + "\\end{matrix}\\right| = $$\n$$ = " +
+   formatInt(a) + "\\cdot " + formatInt(e) + "\\cdot " + formatInt(i) + " + " + 
+   formatInt(b) + "\\cdot " + formatInt(f) + "\\cdot " + formatInt(g) + " + " + 
+   formatInt(c) + "\\cdot " + formatInt(d) + "\\cdot " + formatInt(h) + " - $$\n$$ - " + 
+   formatInt(c) + "\\cdot " + formatInt(e) + "\\cdot " + formatInt(g) + " - " + 
+   formatInt(b) + "\\cdot " + formatInt(d) + "\\cdot " + formatInt(i) + " - " + 
+   formatInt(a) + "\\cdot " + formatInt(f) + "\\cdot " + formatInt(h) + " = $$\n$$ = " +
+   formatInt(a*e*i) + "+" +
+   formatInt(b*f*g) + "+" +
+   formatInt(c*d*h) + "-" +
+   formatInt(c*e*g) + "-" +
+   formatInt(b*d*i) + "-" +
+   formatInt(a*f*h) + " = $$\n$$ = " +
+   (a*e*i + b*f*g + c*d*h - c*e*g - b*d*i - a*f*h) + "$$";
+   MathJax.typeset();
+}
+</script>
+</head>
+<body>
+<p align="center"><b>3*3 DETERMINANT CALCULATION</b></p>
+<p align="center"><input id="a"><input id="b"><input id="c"></p>
+<p align="center"><input id="d"><input id="e"><input id="f"></p>
+<p align="center"><input id="g"><input id="h"><input id="i"></p>
+<p align="center"><input type="button" value="CALC" onclick="calc();"></p>
+<p align="center" id="output">ENTER NUMBERS</p>
+</body>
+</html>
