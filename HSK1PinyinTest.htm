@@ -1,0 +1,268 @@
+﻿<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<html>
+<head>
+<title>Китайские иероглифы. HSK1</title>
+</head>
+<body bgcolor="black" text="#B83DFF">
+<center>
+<h2>Китайские иероглифы</h2>
+<h2>HSK1</h2>
+<h2 id="counter"></h2>
+<h1 id="output"></h1>
+<table>
+<tr>
+<td align="center">Пиньинь:</td>
+<td align="center">Тон:</td>
+</tr>
+<tr>
+<td><input type="text" id="syl" size="10"></td>
+<td><input type="text" id="tone" size="1"></td>
+</tr>
+</table>
+<p><input type="submit" id="checkbutton" value="Проверить" onclick="f_check();"></p>
+<p>Правильные ответы:</p>
+<div id="doneright"></div>
+<p>Неправильные ответы:</p>
+<div id="donewrong"></div>
+<p>(C) <a href="https://www.instagram.com/art.student.21/">Art Student 21</a>
+aka <a href="https://vk.com/id637395628">Dim Light</a>, 2023</p>
+</center>
+<script type="text/javascript">
+var hsk1 = 
+[
+["一", "yī", "yi", 1],
+["七", "qī", "qi", 1],
+["三", "sān", "san", 1],
+["上", "shàng", "shang", 4],
+["下", "xià", "xia", 4],
+["不", "bù", "bu", 4],
+["东", "dōng", "dong", 1],
+["个", "gè", "ge", 4],
+["中", "zhōng", "zhong", 1],
+["么", "me", "me", 0],
+["九", "jiǔ", "jiu", 3],
+["习", "xí", "xi", 2],
+["书", "shū", "shu", 1],
+["买", "mǎi", "mai", 3],
+["了", "le", "le", 0],
+["二", "èr", "er", 4],
+["五", "wǔ", "wu", 3],
+["些", "xiē", "xie", 1],
+["京", "jīng", "jing", 1],
+["亮", "liàng", "liang", 4],
+["人", "rén", "ren", 2],
+["什", "shén", "shen", 2],
+["今", "jīn", "jin", 1],
+["他", "tā", "ta", 1],
+["们", "men", "men", 0],
+["会", "huì", "hui", 4],
+["住", "zhù", "zhu", 4],
+["作", "zuò", "zuo", 4],
+["你", "nǐ", "ni", 3],
+["候", "hòu", "hou", 4],
+["做", "zuò", "zuo", 4],
+["儿", "ér", "er", 2],
+["先", "xiān", "xian", 1],
+["八", "bā", "ba", 1],
+["六", "liù", "liu", 4],
+["关", "guān", "guan", 1],
+["兴", "xìng", "xing", 4],
+["再", "zài", "zai", 4],
+["写", "xiě", "xie", 3],
+["冷", "lěng", "leng", 3],
+["几", "jǐ", "ji", 3],
+["出", "chū", "chu", 1],
+["分", "fēn", "fen", 1],
+["前", "qián", "qian", 2],
+["北", "běi", "bei", 3],
+["医", "yī", "yi", 1],
+["十", "shí", "shi", 2],
+["午", "wǔ", "wu", 3],
+["去", "qù", "qu", 4],
+["友", "yǒu", "you", 3],
+["叫", "jiào", "jiao", 4],
+["吃", "chī", "chi", 1],
+["同", "tóng", "tong", 2],
+["名", "míng", "ming", 2],
+["后", "hòu", "hou", 4],
+["吗", "ma", "ma", 0],
+["听", "tīng", "ting", 1],
+["呢", "ne", "ne", 0],
+["和", "hé", "he", 2],
+["哪", "nǎ", "na", 3],
+["商", "shāng", "shang", 1],
+["喂", "wèi", "wei", 4],
+["喜", "xǐ", "xi", 3],
+["喝", "hē", "he", 1],
+["四", "sì", "si", 4],
+["回", "huí", "hui", 2],
+["国", "guó", "guo", 2],
+["在", "zài", "zai", 4],
+["坐", "zuò", "zuo", 4],
+["块", "kuài", "kuai", 4],
+["多", "duō", "duo", 1],
+["大", "dà", "da", 4],
+["天", "tiān", "tian", 1],
+["太", "tài", "tai", 4],
+["女", "nǚ", "nv", 3],
+["她", "tā", "ta", 1],
+["好", "hǎo", "hao", 3],
+["妈", "mā", "ma", 1],
+["姐", "jiě", "jie", 3],
+["子", "zi", "zi", 0],
+["字", "zì", "zi", 4],
+["学", "xué", "xue", 2],
+["客", "kè", "ke", 4],
+["家", "jiā", "jia", 1],
+["对", "duì", "dui", 4],
+["小", "xiǎo", "xiao", 3],
+["少", "shǎo", "shao", 3],
+["岁", "suì", "sui", 4],
+["工", "gōng", "gong", 1],
+["师", "shī", "shi", 1],
+["年", "nián", "nian", 2],
+["店", "diàn", "dian", 4],
+["开", "kāi", "kai", 1],
+["影", "yǐng", "ying", 3],
+["很", "hěn", "hen", 3],
+["怎", "zěn", "zen", 3],
+["想", "xiǎng", "xiang", 3],
+["我", "wǒ", "wo", 3],
+["打", "dǎ", "da", 3],
+["日", "rì", "ri", 4],
+["时", "shí", "shi", 2],
+["明", "míng", "ming", 2],
+["星", "xīng", "xing", 1],
+["昨", "zuó", "zuo", 2],
+["是", "shì", "shi", 4],
+["月", "yuè", "yue", 4],
+["有", "yǒu", "you", 3],
+["朋", "péng", "peng", 2],
+["服", "fú", "fu", 2],
+["期", "qī", "qi", 1],
+["本", "běn", "ben", 3],
+["机", "jī", "ji", 1],
+["来", "lái", "lai", 2],
+["杯", "bēi", "bei", 1],
+["果", "guǒ", "guo", 3],
+["校", "xiào", "xiao", 4],
+["样", "yàng", "yang", 4],
+["桌", "zhuō", "zhuo", 1],
+["椅", "yǐ", "yi", 3],
+["欢", "huān", "huan", 1],
+["气", "qì", "qi", 4],
+["水", "shuǐ", "shui", 3],
+["汉", "hàn", "han", 4],
+["没", "méi", "mei", 2],
+["漂", "piào", "piao", 4],
+["火", "huǒ", "huo", 3],
+["点", "diǎn", "dian", 3],
+["热", "rè", "re", 4],
+["爱", "ài", "ai", 4],
+["爸", "bà", "ba", 4],
+["狗", "gǒu", "gou", 3],
+["猫", "māo", "mao", 1],
+["现", "xiàn", "xian", 4],
+["生", "shēng", "sheng", 1],
+["电", "diàn", "dian", 4],
+["的", "de", "de", 0],
+["看", "kàn", "kan", 4],
+["睡", "shuì", "shui", 4],
+["租", "zū", "zu", 1],
+["站", "zhàn", "zhan", 4],
+["米", "mǐ", "mi", 3],
+["系", "xì", "xi", 4],
+["老", "lǎo", "lao", 3],
+["能", "néng", "neng", 2],
+["脑", "nǎo", "nao", 3],
+["苹", "píng", "ping", 2],
+["茶", "chá", "cha", 2],
+["菜", "cài", "cai", 4],
+["衣", "yī", "yi", 1],
+["西", "xī", "xi", 1],
+["见", "jiàn", "jian", 4],
+["视", "shì", "shi", 4],
+["觉", "jiào", "jiao", 4],
+["认", "rèn", "ren", 4],
+["识", "shí", "shi", 2],
+["话", "huà", "hua", 4],
+["语", "yǔ", "yu", 3],
+["说", "shuō", "shuo", 1],
+["请", "qǐng", "qing", 3],
+["读", "dú", "du", 2],
+["谁", "shéi", "shei", 2],
+["谢", "xiè", "xie", 4],
+["起", "qǐ", "qi", 3],
+["车", "chē", "che", 1],
+["这", "zhè", "zhe", 4],
+["那", "nà", "na", 4],
+["都", "dōu", "dou", 1],
+["里", "lǐ", "li", 3],
+["钟", "zhōng", "zhong", 1],
+["钱", "qián", "qian", 2],
+["院", "yuàn", "yuan", 4],
+["雨", "yǔ", "yu", 3],
+["零", "líng", "ling", 2],
+["面", "miàn", "mian", 4],
+["飞", "fēi", "fei", 1],
+["饭", "fàn", "fan", 4],
+["馆", "guǎn", "guan", 3],
+["高", "gāo", "gao", 1]
+];
+var t = new Array(178);
+for (var i = 0; i < 178; i++)
+	t[i] = 0;
+var d = 0;
+var n = 0;
+var dr = "";
+var dw = "";
+f_new();
+function f_new()
+{
+	if(d == 178)
+		return;
+	var i = Math.floor(Math.random() * (178 - d));
+	var j = 0;
+	
+	for(n = 0; n < 178; n++) {
+		if(t[n] != 0)
+			continue;
+		if(i == j)
+			break;
+		j++;
+	}
+	document.getElementById("counter").innerHTML = "Проверено " + d + " из 178";
+	document.getElementById("output").innerHTML = hsk1[n][0];
+	document.getElementById("syl").value = "";
+	document.getElementById("tone").value = "";
+	document.getElementById("syl").focus();
+}
+function f_check()
+{
+	if(document.getElementById("syl").value == hsk1[n][2] &&
+	   document.getElementById("tone").value == hsk1[n][3]) {
+		t[n] = 1;
+		dr += hsk1[n][0];
+	}
+	else {
+		t[n] = 2;
+		dw += hsk1[n][0];
+		window.alert("Неправильно! Правильный ответ: \n" + hsk1[n][2] + " " + hsk1[n][3] + " (" + hsk1[n][1] + ")");
+	}
+	document.getElementById("doneright").innerHTML = dr;
+	document.getElementById("donewrong").innerHTML = dw;
+	d++;
+	if(d == 178) {
+		document.getElementById("counter").innerHTML = "Проверено " + d + " из 178";
+		document.getElementById("output").style.display = "none";
+		document.getElementById("syl").style.display = "none";
+		document.getElementById("tone").style.display = "none";
+		document.getElementById("checkbutton").style.display = "none";
+		return;
+	}
+	f_new();
+}
+</script>
+</body>
+</html>
